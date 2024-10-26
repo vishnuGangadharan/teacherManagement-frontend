@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import AddStudent from './AddStudent';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
 import { blockStudent, deleteStudent, getStudents } from '../../api/user';
 import { Students } from '../../services/interface/studetns';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import { userLogout } from '../../redux/userSlice';
+import { Button } from '@nextui-org/react';
 
 const Home = () => {
   const user = useSelector((state: RootState) => state.auth.userInfo);
   const teacherId = user._id; 
-
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
   const [students, setStudents] = useState<Students[]>([]);
 
   const getStudentsData = async (teacherId: string) => {
@@ -32,6 +36,14 @@ if(teacherId){
   }, [teacherId]); 
 
 }
+
+
+  const  handleLogout = () =>{
+    dispatch(userLogout()); 
+    localStorage.removeItem('token');
+    navigate('/student/studentLogin')
+  }
+
 
   const handleDelete= async(id:string) => {
     const response = await deleteStudent(id)
@@ -63,7 +75,9 @@ if(teacherId){
     <div className="p-6 bg-gray-100 h-screen">
       <h1 className="text-2xl font-bold mb-4">Teacher Home Page</h1>
       <AddStudent onStudentAdded={refreshStudentList}/>
-
+      <Button onClick={handleLogout} type="submit" color="warning" className="w-32 max-w-xs mx-auto ">
+              Logout
+            </Button>
       <div className="overflow-x-auto mt-6">
         <table className="min-w-full bg-white rounded-lg shadow-lg">
           <thead className="bg-gray-200">

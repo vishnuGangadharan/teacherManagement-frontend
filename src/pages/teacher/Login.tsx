@@ -57,7 +57,7 @@ const Login: React.FC = () => {
       {/* Left Section: Image */}
       <img 
         className="lg:w-1/2 w-full h-72 lg:h-screen object-cover bg-center"
-        src="https://img.freepik.com/free-photo/close-up-hands-holding-diplomas-caps_23-2148950575.jpg?ga=GA1.1.985132408.1720016698&semt=ais_hybrid" 
+        src="https://img.freepik.com/free-photo/education-day-arrangement-table-with-copy-space_23-2148721266.jpg?ga=GA1.1.985132408.1720016698&semt=ais_hybrid" 
         alt="Signup background"
       />
 
